@@ -13,10 +13,8 @@
 \usepackage{picture}
 \usepackage{multirow}
 \usepackage{pifont}
-\usepackage[hidelinks]{hyperref}
-
-
-%codice per mettere logo in sfondo ad ogni pagina
+\usepackage[hidelinks]{hyprref}
+               %codice per mettere logo in sfondo ad ogni pagina
 \usepackage{eso-pic}
 
 \AddToShipoutPicture
@@ -24,12 +22,10 @@
   \put(\LenToUnit{.4\textwidth}, \LenToUnit{.5\textheight}){\includegraphics{Immagini/logo}}%
 }
 
+
 \makeatletter
-
 \newcommand{\lstuppercase}{\uppercase\expandafter{\expandafter\lst@token\expandafter{\the\lst@token}}}
-
 \newcommand{\lstlowercase}{\lowercase\expandafter{\expandafter\lst@token\expandafter{\the\lst@token}}}
-
 \makeatother
 
 \lstdefinelanguage{myLang}
@@ -68,7 +64,6 @@
 \tableofcontents
 \mainmatter
 \include{Introduzione}
-\include{Dataset Originale}
-
+\include{Dataset_Originale}
 
 \end{document}

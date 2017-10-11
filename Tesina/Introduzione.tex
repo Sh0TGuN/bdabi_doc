@@ -4,9 +4,19 @@
 % !TeX spellcheck = en_GB
 
 \chapter{Introduction}
+\textit{"Yelp è un social network in cui le persone si scambiano pareri, opinioni e “dritte” sui posti migliori del luogo in cui abitano e di quelli in cui vanno per lavoro, viaggio o altri motivi."}\footnote{Claudia Resta - Community di Yelp}\\\\
+La mission di questo elaborato è analizzare un dataset fornito da Yelp, contenente informazioni riguardanti differenti business, utenti ed un loro sottoinsieme di recensioni effettuate, al fine di individuare gli utenti più influenti della rete.\\
+In particolare, quello della \textbf{Influence Maximization} è il problema di trovare un piccolo \textit{subset} di nodi in una social network tale da  massimizzare la diffusione di influenza (\textit{spread influence}).
 
-In this project i talk about of topic detection on tweets. The tweets were collected with the Twitter APIs and for topic detection was developed a SOLR plugins that it implement three topic model: LSA (Latent Semantic Analysis), PLSA(Probability Latent Semantic Analysis) and LDA(Latent Dirichlet Allocation). For topic detection have been developed a SOLR plugin. Subsequently was compared the accuracy of three approaches.
+\section{Dataset Originale}
+Il dataset iniziale è fornito di 5 differenti files in formato "\textbf{json}":
+\begin{itemize}
+	\item \textbf{User}: contiene informazioni riguardanti gli utenti iscritti e le loro amicizie (circa 1.1M);
+	\item \textbf{Business}: contiene informazioni riguardanti i business recensiti (circa 144K);
+	\item \textbf{Review}: contiene le recensioni che gli utenti hanno effettuato per i business (circa 4.1M);
+	\item \textbf{Checkin}: contiene informazioni riguardanti le visite effettuate nel tempo presso i differenti business;
+	\item \textbf{Tip}: contiene informazioni riguardanti i suggerimenti che gli utenti hanno lasciato ai differenti business.
+\end{itemize}
 
-\section{Apache SOLR}
-
-Apache SOLR is an open source enterprise search platform, developed in Java from project Apache Lucene. Apache SOLR is the Web Application of Lucene. It uses the Lucene Search Library and extends it and exposes Lucene Java API's ad REST-Full services. Apache Lucene indexing a document using inverse index. The document is principal unit in SOLR/Lucene and is a schema-less, in fact it's easy to define a new document schema. It is possible extends SOLR developing a plugin, the plugin is a Java Class that extends a SOLR interface(example: RequestHandlerBase).
+\'E stata effettuata un'analisi preliminare del problema andando direttamente ad utilizzare la piattaforma, al fine di comprenderne meglio le dinamiche di funzionamento.\\
+In particolare, ogni utente iscritto possiede una propria pagina personale, sulla quale altri utenti possono lasciare differenti "\textit{complimenti}"

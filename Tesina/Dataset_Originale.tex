@@ -3,7 +3,7 @@
 % !TEX program = pdflatex
 % !TeX spellcheck = it_IT
 
-\chapter{Dataset Originale}
+\chapter{Studio preliminare del dataset}
 Il dataset iniziale è fornito di 5 differenti files in formato "\textbf{json}":
 \begin{itemize}
 	\item \textbf{User}: contiene informazioni riguardanti gli utenti iscritti e le loro amicizie (circa 1.1M);
@@ -13,5 +13,25 @@ Il dataset iniziale è fornito di 5 differenti files in formato "\textbf{json}":
 	\item \textbf{Tip}: contiene informazioni riguardanti i suggerimenti che gli utenti hanno lasciato ai differenti business.
 \end{itemize}
 
-\'E stata effettuata un'analisi preliminare del problema andando direttamente ad utilizzare la piattaforma, al fine di comprenderne meglio le dinamiche di funzionamento.\\
-In particolare, ogni utente iscritto possiede una propria pagina personale, sulla quale altri utenti possono lasciare differenti "\textit{complimenti}"
+\'E stata effettuata un'analisi preliminare del problema andando direttamente ad
+utilizzare la piattaforma, al fine di comprenderne meglio le dinamiche di
+funzionamento.\\
+In particolare, ogni utente iscritto possiede una propria
+pagina personale, sulla quale altri utenti possono lasciare differenti
+"\textit{complimenti}".\\
+Ogni utente può lasciare una recensione ed un punteggio in
+\textbf{stars} ad un business che ha visitato.\\
+Ogni recensione, a sua volta, può essere giudicata dagli altri utenti con tre
+differenti reazioni:
+\begin{itemize}
+	\item \textbf{Funny};
+	\item \textbf{Useful};
+	\item \textbf{Cool}.
+\end{itemize}
+Yelp utilizza anche un criterio per definire influenti o meno i suoi utenti iscritti,
+assegnando il titolo di "\textit{elite}".\\
+
+\section{Analisi in Power BI}
+Al fine di calpire al meglio le caratteristiche dei dati e, soprattutto, come
+utilizzarli allo scopo della \textbf{Influence Maximization}, si è deciso di
+effettuare un'analisi preliminare utilizando il tool di BI

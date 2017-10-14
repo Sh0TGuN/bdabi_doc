@@ -34,4 +34,68 @@ assegnando il titolo di "\textit{elite}".\\
 \section{Analisi in Power BI}
 Al fine di calpire al meglio le caratteristiche dei dati e, soprattutto, come
 utilizzarli allo scopo della \textbf{Influence Maximization}, si è deciso di
-effettuare un'analisi preliminare utilizando il tool di BI
+effettuare un'analisi preliminare utilizzando un tool di \texttt{BI}.\\
+
+\subsubsection{Review Count for User}
+Nel dataset è presente, per ogni User, un attributo che esprime il numero di
+recensioni realizzate a partire dalla loro data di iscrizione.\\
+\'E stato realizzato un report che controllasse che la somma dei numeri  delle
+recensioni degli user corrispondesse effettivamente al numero di recensioni
+presenti nel dataset \textit{Review}.\\
+Questo è risultato falso, infatti non sono presenti tutte le recensioni
+realmente effettuate da ogni user.\\
+Questo rende tale attributo inutilizzabile per il nostro scopo.\\
+
+\begin{figure}[!htbp]
+	\includegraphics[width=1\linewidth,keepaspectratio]{review_count}
+	\caption{Real Review Counts}
+	\label{review_count}
+\end{figure}
+
+\subsubsection{Yearly Review Count}
+\'E stato fondamentale, per l'analisi implementata, ricavare l'informazione riguardante la distribuzione delle
+recensioni nei vari anni, dal 2004 ad oggi.\\
+Il seguente report mostra, appunto, tale trend:\\
+
+\begin{figure}[!htbp]
+	\includegraphics[width=1\linewidth,keepaspectratio]{review_count_anno}
+	\caption{Yearly Review Counts}
+	\label{review_count_anno}
+\end{figure}
+
+\clearpage
+
+\subsubsection{Monthly Reviews Trend}
+Essendo un problema di \textit{Influence Maximization}, si è pensato di
+considerare solo gli utenti definibili come ``\textit{attivi}'' negli ultimi anni.\\
+Per fare ciò è stato necessario visualizzare, per ogni mese, la percentuale, sul
+totale, di recensioni effettuate, così da decidere di effettuare una scrematura
+delle recensioni in funzione della loro data.
+
+\begin{figure}[!htbp]
+	\includegraphics[width=1\linewidth,keepaspectratio]{yearly_monthly_choice}
+	\caption{Monthly Reviews Trend}
+	\label{yearly_monthly_choice}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=.9\linewidth,keepaspectratio]{table_yearly_monthly_choice}
+	\caption{Table Monthly Reviews Trend}
+	\label{table_yearly_monthly_choice}
+\end{figure}
+
+Si è deciso di considerare solo le recensioni successive all'\textbf{Ottobre 2012},
+assicurando la copertura dell'80.55\% del dataset iniziale.\\
+
+\clearpage
+
+\subsubsection{Users with more Reviews}
+Una prima ricerca di utenti più influenti può essere effettuata individuando
+gli utenti che hanno realizzato più recensioni sulla piattaforma \textit{Yelp}.
+
+\begin{figure}[!htbp]
+	\includegraphics[width=1\linewidth,keepaspectratio]{10_user_most_reviews}
+	\caption{10 Users with more Reviews}
+	\label{10_user_most_reviews}
+\end{figure}

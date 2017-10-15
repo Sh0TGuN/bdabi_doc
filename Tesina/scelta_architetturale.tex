@@ -1,63 +1,81 @@
 % !TEX root = ./main.tex
 % !TEX encoding = UTF-8 Unicode
 % !TEX program = pdflatex
-% !TeX spellcheck = en_GB
+% !TeX spellcheck = it_IT
 
 \chapter{Scelta Architetturale}
 In questo capito sarà mostrata l'architettura del sistema utilizzato per
-la risoluzione del problema di Influence Maximization. Il sistema è formato da un
-livello di data storage e un livello di elaborazione.
+la risoluzione del problema di \textbf{Influence Maximization}. Il sistema è formato da un
+livello di data-storage e un livello di elaborazione.
 
 \section{MongoDB}
-Nel livello dati del sistema, come da requisiti, si richiede l'utilizzo di un database
-noSql. Esistono diversi tipi di database noSql, tra cui: chiave-valore, colonnari,
-graph-db e documentali. Nel caso in esame, dopo aver visionato i dati a nostra
-disposizione, si scelto un database documentale, in particolare \textit{\textbf{MongoDB}}.
+Nel livello data-storage del sistema, come da requisiti, si richiede l'utilizzo di un database
+\textbf{NoSQL}.\\
+Esistono diversi tipi di database NoSQL, tra cui: \textbf{chiave-valore}, \textbf{colonnari},
+\textbf{graph-db} e \textbf{documentali}.\\
+Nel caso in esame, dopo aver visionato i dati a disposizione, si scelto
+un database documentale, in particolare \textit{\textbf{MongoDB}}.\\
 I database documentali sono adatti alla memorizzazione di dati aggregati, ma non
-adatti all'esecuzione di quary complesse. Infatti in tali database ogni record è visto
-come un documento contente delle caratteristiche, l'accesso ad ogni documento
-può essere effettuato solo tramite una chiave. Poiché i nostri dati sono
-memorizzati in file .json  presentando strutture dati non elementare, come ad
-esempio il campo \textit{Elite} del file utenti, ed inoltre è stato scelto di non
-effettuare pressing dei dati nel livello database la scelta è ricaduta su questo
-tipo di db. MongoDB è stato installato per fini didattici su di un singolo nodo, di seguito
+adatti all'esecuzione di query complesse.\\
+Infatti in tali database ogni record è visto come un documento contente delle
+caratteristiche, il cui accesso è possibile
+solo tramite chiave.\\
+Poiché i dati forniti da \textit{Yelp} sono memorizzati in file .json che presentano
+delle strutture dati complesse, come ad esempio il campo \textit{Elite} del file
+utenti (contenente un array di anni), ed avendo scelto
+di non effettuare processing dei dati al livello database, il db più adatto è
+risultato essere appartenente a questa vasta famiglia.\\
+MongoDB è stato installato per fini didattici su un singolo nodo, di seguito
 saranno riportati i dettagli.
+
 \begin{figure}[!htbp]
 	\includegraphics[width=.7\linewidth,keepaspectratio]{mongo.png}
   \caption{MongoDB}
   \label{}
 \end{figure}
+
 \section{Apache Spark}
-Apache Spark è un framework open source per il calcolo distribuito. Utilizza il
-paradigma MapReduce in memory riuscendo a raggiungere prestazioni 100 volte superiori
-a quelle raggiunte da Hadoop. Tale framework è disponibile nei seguenti linguaggi di
-programmazione: \textit{\textbf{Scala}}, \textit{\textbf{Java}}, \textit{\textbf{Python}}
-e \textit{\textbf{R}}.
-Inoltre per poter creare il grafo si è fatto uso del framework Graphx, il quale
-rende disponibili diversi metodi applicabili su grafi. Per poter utilizzare
-Apache Spark  si è utilizzata la piattaforma cloud Databrick la quale rende
-disponibile in versione community un cluster composto da 8 core e 6GB di RAM.
+\textbf{Apache Spark} è un framework open source per il calcolo distribuito.\\
+Utilizza il paradigma MapReduce in memory riuscendo a raggiungere prestazioni
+anche 100 volte superiori a quelle raggiunte da Hadoop.\\
+Tale framework è disponibile nei seguenti linguaggi di programmazione:
+\begin{itemize}
+	\item \textit{\textbf{Scala}};
+	\item \textit{\textbf{Java}};
+	\item \textit{\textbf{Python}};
+	\item \textit{\textbf{R}}.
+\end{itemize}
+Per poter utilizzare il framework di Apache Spark si è utilizzata la piattaforma
+cloud \textbf{Databricks}, che cela tutte la fase di installazione e configurazione
+del framework e rende disponibile direttamente all'utente (in versione community)
+un \textit{cluster} composto da \textbf{8 core} e \textbf{6GB RAM}.
 \begin{figure}[!htbp]
 	\includegraphics[width=.7\linewidth,keepaspectratio]{spark.png}
   \caption{Apache Spark}
   \label{}
 \end{figure}
 
-\clearpage
+\subsection{Graphx}
+Inoltre, per far fronte ad un'elaborazione di \textit{Influence Maximization},
+si è dovuto ricorrere a delle strutture a grafi per la rappresentazioni dei nodi,
+delle relazioni e per la realizzazione dell'algoritmo di \textit{Spread}.\\
+A tal proposito si è fatto uso di \textbf{Graphx}, \textit{API} fornita da Apache
+Spark, per la \textit{graph-parallel computation}.
 
 \section{Archittettura}
-Quindi in definitiva il sistema scelto è cosi formato:
+In definitiva l'architettura del sistema scelto è così definita:
 \begin{itemize}
-	\item MongoDB per lo storage dei dati di origine e per dei risultati;
-	\item Apache Spark per il pre-processing dei dati;
-	\item Graphx la creazione del grafo e per l'implementazione dell'algoritmo di Influence
-	Maximization.
+	\item \textbf{MongoDB}: per lo storage dei dati di origine e per dei risultati;
+	\item \textbf{Apache Spark}: per il pre-processing dei dati;
+	\item \textbf{Graphx} la creazione del grafo e per l'implementazione dell'algoritmo
+	 di \textit{Influence Maximization}.
 \end{itemize}
-Nella seguente figura è mostato l'architettura utilizzata.
+
 \begin{figure}[!htbp]
 	\includegraphics[width=.7\linewidth,keepaspectratio]{architettura.png}
   \caption{Archiettura del sistema}
   \label{sysarch}
 \end{figure}
-Quindi in definitiva MongoDB risiede su di un nodo mentre Apache Spark con Graphx
-è in Databricks.
+
+MongoDB è stato installato su un singolo nodo, mentre il framework Apache
+Spark con le API annesse di GraphX risiedono nel cloud di Databricks.\\

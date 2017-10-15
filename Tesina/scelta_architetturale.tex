@@ -4,19 +4,60 @@
 % !TeX spellcheck = en_GB
 
 \chapter{Scelta Architetturale}
-\textit{"Yelp è un social network in cui le persone si scambiano pareri, opinioni e “dritte” sui posti migliori del luogo in cui abitano e di quelli in cui vanno per lavoro, viaggio o altri motivi."}\footnote{Claudia Resta - Community di Yelp}\\\\
-La mission di questo elaborato è analizzare un dataset fornito da Yelp, contenente informazioni riguardanti differenti business, utenti ed un loro sottoinsieme di recensioni effettuate, al fine di individuare gli utenti più influenti della rete.\\
-In particolare, quello della \textbf{Influence Maximization} è il problema di trovare un piccolo \textit{subset} di nodi in una social network tale da  massimizzare la diffusione di influenza (\textit{spread influence}).
+In questo capito sarà mostrata l'architettura del sistema utilizzato per
+la risoluzione del problema di Influence Maximization. Il sistema è formato da un
+livello di data storage e un livello di elaborazione.
 
-\section{Dataset Originale}
-Il dataset iniziale è fornito di 5 differenti files in formato "\textbf{json}":
+\section{MongoDB}
+Nel livello dati del sistema, come da requisiti, si richiede l'utilizzo di un database
+noSql. Esistono diversi tipi di database noSql, tra cui: chiave-valore, colonnari,
+graph-db e documentali. Nel caso in esame, dopo aver visionato i dati a nostra
+disposizione, si scelto un database documentale, in particolare \textit{\textbf{MongoDB}}.
+I database documentali sono adatti alla memorizzazione di dati aggregati, ma non
+adatti all'esecuzione di quary complesse. Infatti in tali database ogni record è visto
+come un documento contente delle caratteristiche, l'accesso ad ogni documento
+può essere effettuato solo tramite una chiave. Poiché i nostri dati sono
+memorizzati in file .json  presentando strutture dati non elementare, come ad
+esempio il campo \textit{Elite} del file utenti, ed inoltre è stato scelto di non
+effettuare pressing dei dati nel livello database la scelta è ricaduta su questo
+tipo di db. MongoDB è stato installato per fini didattici su di un singolo nodo, di seguito
+saranno riportati i dettagli.
+\begin{figure}[!htbp]
+	\includegraphics[width=.7\linewidth,keepaspectratio]{mongo.png}
+  \caption{MongoDB}
+  \label{}
+\end{figure}
+\section{Apache Spark}
+Apache Spark è un framework open source per il calcolo distribuito. Utilizza il
+paradigma MapReduce in memory riuscendo a raggiungere prestazioni 100 volte superiori
+a quelle raggiunte da Hadoop. Tale framework è disponibile nei seguenti linguaggi di
+programmazione: \textit{\textbf{Scala}}, \textit{\textbf{Java}}, \textit{\textbf{Python}}
+e \textit{\textbf{R}}.
+Inoltre per poter creare il grafo si è fatto uso del framework Graphx, il quale
+rende disponibili diversi metodi applicabili su grafi. Per poter utilizzare
+Apache Spark  si è utilizzata la piattaforma cloud Databrick la quale rende
+disponibile in versione community un cluster composto da 8 core e 6GB di RAM.
+\begin{figure}[!htbp]
+	\includegraphics[width=.7\linewidth,keepaspectratio]{spark.png}
+  \caption{Apache Spark}
+  \label{}
+\end{figure}
+
+\clearpage
+
+\section{Archittettura}
+Quindi in definitiva il sistema scelto è cosi formato:
 \begin{itemize}
-	\item \textbf{User}: contiene informazioni riguardanti gli utenti iscritti e le loro amicizie (circa 1.1M);
-	\item \textbf{Business}: contiene informazioni riguardanti i business recensiti (circa 144K);
-	\item \textbf{Review}: contiene le recensioni che gli utenti hanno effettuato per i business (circa 4.1M);
-	\item \textbf{Checkin}: contiene informazioni riguardanti le visite effettuate nel tempo presso i differenti business;
-	\item \textbf{Tip}: contiene informazioni riguardanti i suggerimenti che gli utenti hanno lasciato ai differenti business.
+	\item MongoDB per lo storage dei dati di origine e per dei risultati;
+	\item Apache Spark per il pre-processing dei dati;
+	\item Graphx la creazione del grafo e per l'implementazione dell'algoritmo di Influence
+	Maximization.
 \end{itemize}
-
-\'E stata effettuata un'analisi preliminare del problema andando direttamente ad utilizzare la piattaforma, al fine di comprenderne meglio le dinamiche di funzionamento.\\
-In particolare, ogni utente iscritto possiede una propria pagina personale, sulla quale altri utenti possono lasciare differenti "\textit{complimenti}"
+Nella seguente figura è mostato l'architettura utilizzata.
+\begin{figure}[!htbp]
+	\includegraphics[width=.7\linewidth,keepaspectratio]{architettura.png}
+  \caption{Archiettura del sistema}
+  \label{sysarch}
+\end{figure}
+Quindi in definitiva MongoDB risiede su di un nodo mentre Apache Spark con Graphx
+è in Databricks.

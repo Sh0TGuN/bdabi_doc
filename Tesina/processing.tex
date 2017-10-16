@@ -7,7 +7,7 @@
 
 \section{Drop dati}
 In seguito è riportato il codice utilizzato per il drop di informazioni superflue
-o ridondanti dai dataframe a disposizione.
+o ridondanti dai data frame a disposizione.
 \begin{figure}[!htbp]
 	\includegraphics[width=1\linewidth,keepaspectratio]{command_1}
 	\caption{Codice per il drop degli attributi superflui}
@@ -45,11 +45,11 @@ ed inoltre assegna loro un punteggio nullo.
 	\label{command_4}
 \end{figure}
 
-La seguente command crea un nuovo dataframe Users, aggiungendo il nuovo campo
+La seguente command crea un nuovo data frame Users, aggiungendo il nuovo campo
 numerico \textit{elite}
 \begin{figure}[!htbp]
 	\includegraphics[width=1\linewidth,keepaspectratio]{command_5}
-	\caption{Creazione dataframe users contenente il nuovo campo \textit{elite}}
+	\caption{Creazione data frame users contenente il nuovo campo \textit{elite}}
 	\label{command_5}
 \end{figure}
 
@@ -64,23 +64,23 @@ sono apparsi essere più significativi per l'analisi effetuata.
 	\label{command_6}
 \end{figure}
 
-La seguente command crea un nuovo dataframe che comprende il valore review\_score
+La seguente command crea un nuovo data frame che comprende il valore review\_score
 calcolato.
 \begin{figure}[!htbp]
 	\includegraphics[width=1\linewidth,keepaspectratio]{command_7}
-	\caption{Aggiunta \textit{review\_score} al dataframe users}
+	\caption{Aggiunta \textit{review\_score} al data frame users}
 	\label{command_7}
 \end{figure}
 
 \clearpage
 
-\section{Creazione dataframe relazioni user-user con peso archi}
-La seguente command prepara un dataframe iniziale user\_relations in cui ogni tupla
+\section{Creazione data frame relazioni user-user con peso archi}
+La seguente command prepara un data frame iniziale user\_relations in cui ogni tupla
 soddisfa la proprietà che \textbf{User2} ha recensito almeno \textit{dieci}
 business già precedentemente recensiti da \textbf{User1}.
 \begin{figure}[!htbp]
 	\includegraphics[width=1\linewidth,keepaspectratio]{command_8}
-	\caption{Creazione dataframe user\_relations\_not\_vector}
+	\caption{Creazione data frame user\_relations\_not\_vector}
 	\label{command_8}
 \end{figure}
 
@@ -90,41 +90,41 @@ La seguente command prepara i dati al fine di essere elaborati dallo
 \textbf{ScalerModel}, fornito dalle librerie di machine learning di Apache Spark.\\
 Questo modello permette di applicare la trasformazione \textit{Z-Score} ai dati,
 al fine di normalizzarli.\\
-Al termine delle operazioni della command, si ha come dataframe risultante quello
+Al termine delle operazioni della command, si ha come data frame risultante quello
 contenente \textbf{UserId1, UserId2, weight\_zscore}, ovvero le relazioni
 che caratterizzeranno il grafo della Social Network.
 
 \begin{figure}[!htbp]
 	\includegraphics[width=1\linewidth,keepaspectratio]{command_9}
-	\caption{Creazione dataframe user\_relations finale}
+	\caption{Creazione data frame user\_relations finale}
 	\label{command_9}
 \end{figure}
 
 \clearpage
 
-\section{Creazione dataframe dei vertici(users) per il grafo}
-La seguente command crea un dataframe che, a partire da quello delle relazioni,
+\section{Creazione data frame dei vertici(users) per il grafo}
+La seguente command crea un data frame che, a partire da quello delle relazioni,
 prende tutti gli users distinti, così da ottenere i vertici
 del grafo.
 \begin{figure}[!htbp]
 	\includegraphics[width=1\linewidth,keepaspectratio]{command_10}
-	\caption{Creazione dataframe user\_vertex}
+	\caption{Creazione data frame user\_vertex}
 	\label{command_10}
 \end{figure}
 
-Le due seguenti command preparano il dataframe per l'applicazione del modello
+Le due seguenti command preparano il data frame per l'applicazione del modello
 \textbf{ScalerModel}, al fine di normalizzare i dati prima di combinarli.\\
 In seguito si estraggono le quattro \textit{features normalizzate}(review\_score,
 compliment, fans, elite\_score) e se ne calcola una combinazione lineare pesata.
 \begin{figure}[!htbp]
 	\includegraphics[width=1\linewidth,keepaspectratio]{command_11}
-	\caption{Applicazione ScalerModel al dataframe user\_vertex}
+	\caption{Applicazione ScalerModel al data frame user\_vertex}
 	\label{command_11}
 \end{figure}
 
 \clearpage
 
-Il risultato finale della seguente command è il dataframe che associa ad ogni user
+Il risultato finale della seguente command è il data frame che associa ad ogni user
 lo score ad esso calcolato.\\
 Questo score è ottenuto come media pesata delle quattro features scelte per
 caratterizzare gli utenti.\\
@@ -133,6 +133,6 @@ Successivamente saranno mostrati differenti esperimenti al loro variare, al fine
 di ottenere una copertura maggiore del grafo.
 \begin{figure}[!htbp]
  	\includegraphics[width=1\linewidth,keepaspectratio]{command_12}
- 	\caption{Creazione dataframe contenente user e score calcolato}
+ 	\caption{Creazione data frame contenente user e score calcolato}
  	\label{command_12}
 \end{figure}

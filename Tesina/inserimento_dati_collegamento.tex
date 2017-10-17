@@ -4,14 +4,14 @@
 % !TeX spellcheck = it_IT
 
 \chapter{Caricamento dati}
-In questo capitolo verrono mostrate le operazioni effettuare per il caricamento
-dei dati in MongoDB e per il collegamento di Databricks a MongoDB.
+In questo capitolo sono mostrate le operazioni effettuate per il caricamento
+dei dati in MongoDB e per il suo collegamento a Databricks.
 
 \section{Caricamento dati in MongoDB}
-Come già detto in precedenza MongoDB è stato installato su di un singolo nodo.
-Dopo averlo installa è stato lanciato il servizio \textbf{\textit{mongod}} è stato
-possibile laciare da remoto il comando per l'import dei dati in formato JSON.
-Di seguito è riportato uno degli importo effettuati.
+Come già detto in precedenza, MongoDB è stato installato su di un singolo nodo
+e lanciato tramite il comando \textbf{\textit{mongod}}.\\
+Su quest'istanza è stato possibile importare i dati in formato JSON.\\
+Di seguito un esempio di import.
 
 \begin{figure}[!htbp]
 	\includegraphics[width=.7\linewidth,keepaspectratio]{load_on_mongo}
@@ -22,12 +22,12 @@ Di seguito è riportato uno degli importo effettuati.
 
 \section{Da MongoDB a Databricks}
 
-Per la connessione di MongoDB a Databricks è stato necessario scaricare il connettore
-da caricare nella piattaforma di destinazione. Di seguito è riportato il codice
-scala necessario per l'import dei dati.
+Per la connessione di MongoDB a Databricks è stato necessario scaricare il connettore.\\
+Quest'ultimo fornisce le API necessarie per il collegamento e l'utlizzo dell'istanza del database.\\
+In seguito è riportato il codice per la connessione a MongoDB e l'import dei dati.
 
 \begin{figure}[!htbp]
-  \includegraphics[width=1\linewidth,keepaspectratio]{command_25}
-  \caption{Definizione MergeMsg, vProg, SendMsg}
-  \label{command_25}
+  \includegraphics[width=1\linewidth,keepaspectratio]{mongo_spark}
+  \caption{Codice per la connessione a MongoDB}
+  \label{mongo_spark}
 \end{figure}

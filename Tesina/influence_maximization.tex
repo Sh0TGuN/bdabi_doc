@@ -160,7 +160,7 @@ degli archi, di seguito il codice.
 \clearpage
 
 \subsection{Implementazione in scala}
-Per l'implementazione in Scala dell'algoritmo di è fatto uso della funzione \textit{\textbf{Pregel}}
+Per l'implementazione dell'algoritmo in Scala si è fatto uso della funzione \textit{\textbf{Pregel}}
 messa a disposizione da \textit{\textbf{Graphx}}.\\
 Pregel implementa uno scambio di messaggi tra nodi, tale funzione permette di definire tre
 metodi:
@@ -172,4 +172,20 @@ metodi:
 \end{itemize}
 L'esecuzione di \textit{\textbf{Pregel}} è suddivisa in super step e in ogni uno di essi
 sono eseguiti metodi sopra descritti.\\
-Inoltre si possono specificare altri parametri come: numero massimo di iterazioni e messaggio iniziale.
+Inoltre si possono specificare altri parametri come: numero massimo di iterazioni e messaggio iniziale.\\
+Nella figura è riportato il codice per la definizione delle funzioni: \textbf{MergeMsg}, \textbf{vPorg} e \textbf{SendMsg}.
+\begin{figure}[!htbp]
+  \includegraphics[width=1\linewidth,keepaspectratio]{command_25}
+  \caption{Definizione MergeMsg, vProg, SendMsg}
+  \label{command_25}
+\end{figure}
+\clearpage
+
+Nella seguente figure è riportato il codice la l'esecuzione dell'algoritmo per ogni combinazione è l'estrazione
+del risultato con maggiore copertura.
+\begin{figure}[!htbp]
+  \includegraphics[width=1\linewidth,keepaspectratio]{command_26}
+  \caption{Esecuzione Pregel}
+  \label{command_26}
+\end{figure}
+\clearpage

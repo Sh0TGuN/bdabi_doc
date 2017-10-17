@@ -5,16 +5,16 @@
 
 \chapter{Influence Maximization}
 In questo capitolo verrà mostrata la creazione del grafo relativo alla \textit{Social Network}
-e l'algoritmo di \textit{Influence Maximization} applicato su esso.
+e l'algoritmo di \textit{Influence Maximization} applicato su di esso.
 
 \section{Creazione del grafo}
 Nel precedente capitolo è stata illustrata la caratterizzazione dei nodi (lo score
-assegnato ad ogni utente) e la creazione delle relazioni tra esse con il relativo
+assegnato ad ogni utente) e la creazione delle relazioni tra essi, con il relativo
 peso associato.\\
-Per la creazione del grafo è stato utilizzato il framework \textit{\textbf{Graphx}}
+Per la creazione del grafo è stato utilizzato il framework \textit{\textbf{Graphx}},
 il quale permette di definire un oggetto di tipo grafo a partire da un \textit{VertexRDD},
-contenente i nodi, e un \textit{EdgeRDD} contenente le relazioni con i relativi pesi,
-di seguito è riportato il codice.
+contenente i nodi, e un \textit{EdgeRDD} contenente le relazioni con i relativi pesi.\\
+Di seguito è riportato il codice.
 
 \begin{figure}[!htbp]
 	\includegraphics[width=1\linewidth,keepaspectratio]{command_17}
@@ -22,84 +22,90 @@ di seguito è riportato il codice.
 	\label{command_17}
 \end{figure}
 \clearpage
+
 \section{Algoritmo di Influence Maximization}
 L'idea di base dell'algoritmo di Influence Maximization è la seguente: dato il
 grafo delle rete sociale ottenuto, avente uno score per ogni nodo ed un peso per
 ogni arco, individuare un numero finito di nodi da cui iniziare la copertura del
-grafo, e propagare l'influence se e solo se tale valore  supera una soglia prefissata.\\
-Per mostrare l'algoritmo utilizzato si considera il grafo d'esempio in figura.
+grafo e propagare l'influence, se e solo se, tale valore supera una soglia prefissata.\\
+Per mostrare l'algoritmo utilizzato si consideri il grafo d'esempio in figura.
 
 \begin{figure}[!htbp]
   \begin{center}
-    \includegraphics[width=0.5\linewidth,keepaspectratio]{step0}
+    \includegraphics[width=0.6\linewidth,keepaspectratio]{step0}
   	\caption{Grafo d'esempio}
   	\label{step0}
   \end{center}
 \end{figure}
 
-Prima di tutto bisogna scegliere il nodo di partenza, per ora scegliamo il nodo
-con score più alto, successivamente sarà discussa la tecnica utilizzata per la scelta
-dei nodi di partenza. \\
-Nella figura il nodo di partenza è evidenziato in verde (con tale colore saranno
-evidenziati tutti i nodi influenzati).
+\clearpage
 
+Adesso, a fini illustrativi, si considera come nodo di partenza quello avente
+score maggiore(evidenziato in verde).\\
+Successivamente, invece, verrà illustrata la tecnica utilizzata nell'algortimo di \textit{spread}
+per selezionare i nodi di partenza.\\
+Nelle figure a seguire, tutti i nodi influenzati saranno evidenziati in verde.
 \begin{figure}[!htbp]
   \begin{center}
-    \includegraphics[width=0.5\linewidth,keepaspectratio]{step1}
+    \includegraphics[width=0.6\linewidth,keepaspectratio]{step1}
   	\caption{Scelta nodo di partenza}
   	\label{step1}
   \end{center}
 \end{figure}
 \clearpage
-Ora si deve capire come diffondere il valore di influence, il nodo evidenziato ha
-un solo arco in uscita quindi invierà un messaggio contenete il proprio valore ed
-la media del proprio score con il peso associato all'arco, indichiamo il messaggio
-con $(score\_src, 0.5*score\_src+0.5*weight\_edge)$. Dopo che il nodo destinazione
-riceve il messaggio, se il secondo valore è maggiore di una soglia, per esempio 0,
-allora esso è marcato come influenzato e il suo score sarà dato dal minimo tra lo score sorgente
-per 0.5 e il proprio score. In figura il primo step, in particolare si noti che il nodo
-risulta essere influenzato ma il proprio score non cambia poiché il minimo tra 2.1*0.5 e 0.8 è appunto 0.8.
+Ciò che adesso viene illustrato, è il meccanismo di diffusione dell'influenza nel
+grafo.//
+Il nodo di partenza ha un solo arco in uscita, quindi invierà un messaggio contenete il proprio valore e
+la media tra il proprio score ed il peso associato all'arco.\\
+Il messaggio ha la seguente struttura $(score\_src, 0.5*score\_src+0.5*weight\_edge)$.\\
+Una volta ricevuto il messaggio, il nodo destinazione controlla se il secondo valore è maggiore di una certa soglia,
+ad esempio 0.\\
+Qualora il confronto risulti positivo il nodo viene marcato come influenzato ed il
+suo score sarà aggiornato con il minimo tra lo score sorgente(moltiplicato per un costante 0.5) ed il proprio score.\\
+In \figurename~\ref{step2} è riportato il primo step: in particolare si noti che il nodo
+risulta essere influenzato, ma il suo score non varia essendo il minimo tra 2.1*0.5 e 0.8.
 
 \begin{figure}[!htbp]
   \begin{center}
-    \includegraphics[width=0.5\linewidth,keepaspectratio]{step2}
+    \includegraphics[width=0.6\linewidth,keepaspectratio]{step2}
   	\caption{Passo uno}
   	\label{step2}
   \end{center}
 \end{figure}
 \clearpage
-L'algoritmo continua fintantoché o sono tutti influenzati oppure non esisto più cammini
-su cui è possibile proseguire la copertura. Quindi tornando all'esempio, nel secondo step
-si saranno influenzati i nodi 6L e 4L.
+L'algoritmo continua fintantoché tutti i nodi sono influenzati oppure non esistono più cammini percorribili.\\
+Quindi tornando all'esempio, nel secondo step saranno influenzati i nodi \textbf{6L} e \textbf{4L}.
 
 \begin{figure}[!htbp]
   \begin{center}
-    \includegraphics[width=0.5\linewidth,keepaspectratio]{step3}
-  	\caption{Passo uno}
+    \includegraphics[width=0.6\linewidth,keepaspectratio]{step3}
+  	\caption{Passo due}
   	\label{step3}
   \end{center}
 \end{figure}
 \clearpage
-Nel terzo step nota che il nodo 5L ha due archi in ingesso sui quali riceve simultaneamente
-il messagggio in questo caso è considerato valido l'arco con peso maggiore.
+Nel terzo step si noti che il nodo \textbf{5L} ha due archi in ingesso, sui quali riceve simultaneamente
+due messaggi.\\
+In tal caso è considerato valido il messaggio avente arco con peso maggiore.
+Lo score del nodo è aggiornato, essendo maggiore del valore ricevuto nel messaggio.\\
 \begin{figure}[!htbp]
   \begin{center}
-    \includegraphics[width=0.5\linewidth,keepaspectratio]{step4}
-  	\caption{Passo uno}
+    \includegraphics[width=0.6\linewidth,keepaspectratio]{step4}
+  	\caption{Passo tre}
   	\label{step4}
   \end{center}
 \end{figure}
 \clearpage
-Nel ultimo step si nota che il nodo 3L marcato di rosso non è stato influenzato
+
+Nel ultimo step, si noti che il nodo \textbf{3L}, marcato di rosso, non è stato influenzato
 in quanto il valore non supera la soglia.
 \begin{figure}[!htbp]
   \begin{center}
-    \includegraphics[width=0.5\linewidth,keepaspectratio]{step5}
-  	\caption{Passo uno}
+    \includegraphics[width=0.6\linewidth,keepaspectratio]{step5}
+  	\caption{Passo quattro}
   	\label{step5}
   \end{center}
 \end{figure}
-Ora non resta che definire i nodi di partenza ed il valore della soglia.
 \clearpage
 \subsection{Scelta utenti di partenza}
 In questo paragrafo sarà discusso il criterio con cui sono stati scelti gli utenti

@@ -118,9 +118,11 @@ catene di Markov. Per individuare un cluster in un grafo, MCL utilizza una matri
 e il concetto di random walks. In pratica le random walks tra due nodi sono più frequenti se esse appartengono
 allo stesso gruppo. Così facendo si calcola la probabilità che un nodo ricade in
 un cluster o in un altro.\\
-L'algoritmo di divide in tre fasi:
+L'algoritmo è diviso in tre fasi, le prime due simulano le random walks mentre la terza effettua una test di
+convergenza. Nel dettaglio
 \begin{itemize}
-  \item \textbf{Expansion} su calcola il quadrato della Matrice Stocastica
+  \item \textbf{Expansion}: calcola il quadrato della Matrice Stocastica;
+	\item \textbf{Inflation}: applica il prodotto di Hadamard sulla matrice sto
 \end{itemize}
 Di seguito è riportato il codice in cui è utilizzato tale algoritmo.
 \begin{figure}[!htbp]

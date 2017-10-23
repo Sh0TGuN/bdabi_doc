@@ -174,9 +174,14 @@ nodi.
 \clearpage
 
 \subsection{Scelta della soglia}
-La soglia utilizzata per stabilire se un nodo è stato influenzato dal precedente
-oppure no, è calcolata come media tra la mediana degli score degli utenti e la
-mediana dei pesi degli archi, come mostrato in \figurename~\ref{command_24}
+Nell'algoritmo di diffusione è stato stabilito di studiare la copertura del grafo
+nel caso di due differenti soglie:
+\begin{itemize}
+	\item Caso A:  media delle \textbf{mediane} degli score degli utenti e dei pesi degli archi;
+	\item Caso B:  media delle \textbf{medie} degli score degli utenti e dei pesi degli archi
+				(essendo attributi normalizzati con z-score, la media è nulla).
+\end{itemize}
+In \figurename~\ref{command_24} è mostrato il calcolo della soglia nel caso A.
 
 \begin{figure}[!htbp]
   \includegraphics[width=1\linewidth,keepaspectratio]{command_24}
